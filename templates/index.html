@@ -1,8 +1,12 @@
-{% extends "base.html" %}
+{% extends "juice/templates/index.html" %}
+{% block header %}
+{% endblock header %}
 
 {% block content %}
-<h1 class="title">
-    This is my blog made with Zola.
-</h1>
-<p>Click <a href="{{ get_url(path="@/blog/_index.md") }}">here</a> to see my posts.</p>
+    {% for page in section.pages %}
+        <h1><a href="{{ page.permalink }}">{{ page.title }}</a></h1>
+    {% endfor %}
 {% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
