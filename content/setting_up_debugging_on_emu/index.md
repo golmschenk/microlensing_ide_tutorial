@@ -13,7 +13,7 @@ This tutorial will demonstrate how to set up the CLion IDE to run and debug Davi
     * CLion can be downloaded [here](https://www.jetbrains.com/clion/download/#section=mac).
     * A free academic license for students, faculty, and those engaged in academic research can be obtained [here](https://www.jetbrains.com/community/education/#students).
 2. Have the example project downloaded.
-    * Download it from [here](https://google.com).
+    * Download it from [here](https://olmschenk-my.sharepoint.com/:f:/p/greg/EtT2n1ummvlHh6PF9G2bhswB1gYtcXU-R99_vQpl8Ekjpw?e=iJxFP9).
 3. Have your SSH configuration file set up to allow single command connection to gs66-emu.
 
 # 1. Open the project in CLion
