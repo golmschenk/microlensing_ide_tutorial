@@ -1,6 +1,6 @@
 +++
-title = "Setting up remote debugging on gs66-emu"
-description = "Setting up remote debugging on gs66-emu"
+title = "Setting up remote Fortran debugging on gs66-emu"
+description = "Setting up remote Fortran debugging on gs66-emu"
 date = 2022-08-04
 +++
 
