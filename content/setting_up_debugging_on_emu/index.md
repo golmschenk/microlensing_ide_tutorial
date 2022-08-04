@@ -112,7 +112,7 @@ For demonstration purposes, we will add a breakpoint to the code, but this is no
 6. The half-play button in the panel will continue the code until it hits another breakpoint or other error.
 7. The various arrow buttons can be used to step through the code line-by-line from the current location.
 8. The calculator button can be used to execute (mostly) arbitrary commands at that point in the code.
-{{ video(src="using_the_debugger.mov") }}
+{{ video(src="using_the_debugger.mp4") }}
 
 # Extras
 * At the right side of CLion, there is a tab for "Remote Host", which provides a graphical file explorer of gs66-emu. This allows for easy editing and drag-and-drop interaction will files on any configured remote host.
