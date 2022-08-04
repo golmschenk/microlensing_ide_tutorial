@@ -50,20 +50,7 @@ It is possible to use more complex SSH commands from within CLion. However, for 
 8. Apply the changes.
 {{ video(src="setting_up_ssh_configuration.mov") }}
 
-# 5. Add a deployment configuration
-A "deployment" tells CLion where you want to deploy the code. In this case, where on gs66-emu we want the code to exist and run from.
-1. Open CLion's preferences.
-2. Within preferences, open "Build, Execution, Deployment > Deployment".
-3. Create a new deployment with the "+" button, and select a "SFTP" type.
-4. Set the name to that CLion will refer to the server as (e.g., `gs66-emu`).
-5. From the SSH configuration dropdown, select the configuration we previously created.
-6. Click the "Autodetect" button to automatically find and use the user's home directory as the root directory for the deployment.
-7. Go to the "Mappings" tab. Here we specify which local directories should be mapped to which remote directories.
-8. Specify a name for the project directory on gs66-emu. The simplest option is to use the same directory name as you're using locally (`modeling_code_and_example_run`). This is relative to the root directory set above (i.e., your home directory).
-9. Apply the changes.
-{{ video(src="setting_up_the_deployment.mov") }}
-
-# 6. Add the remote toolchain
+# 5. Add the remote toolchain
 The toolchain is the collection of compiler, debugger, etc. used to build and execute the code. This will set up CLion to use the Intel "ifort" compiler on gs66-emu. More toolchains can be added later (e.g., a local toolchain).
 1. Open CLion's preferences.
 2. Within preferences, open "Build, Execution, Deployment > Toolchains".
@@ -72,7 +59,18 @@ The toolchain is the collection of compiler, debugger, etc. used to build and ex
 5. In the "Credentials" dropdown, select the SSH configuration we previously created.
 6. Click "Add environment" > "From file", and add the path `/local/data/emussd1/greg_shared/intel_environment_file.sh`. This environment file will set the environment variables for the toolchain.
 7. Apply the changes.
-{{ video(src="setting_up_the_remote_toolchain.mov") }}
+   {{ video(src="setting_up_the_remote_toolchain.mov") }}
+
+# 6. Add a deployment configuration
+A "deployment" tells CLion where you want to deploy the code. In this case, where on gs66-emu we want the code to exist and run from.
+1. Open CLion's preferences.
+2. Within preferences, open "Build, Execution, Deployment > Deployment".
+3. When we created our toolchain, CLion created a default deployment for us based on that. Select that deployment.
+4. For the "Root Path", click the "Autodetect" button to automatically find and use the user's home directory as the root directory for the deployment.
+5. Go to the "Mappings" tab. Here we specify which local directories should be mapped to which remote directories.
+6. Specify a name for the project directory on gs66-emu. The simplest option is to use the same directory name as you're using locally (`modeling_code_and_example_run`). This is relative to the root directory set above (i.e., your home directory).
+7. Apply the changes.
+{{ video(src="setting_up_the_deployment.mov") }}
 
 # 7. Add the CMake configuration
 This tutorial uses CMake instead of GNU Make. CMake has several advantages over Make. Notably for our case, it interacts with IDEs more easily. CLion can also function with Make, but it requires a few extra steps and is a bit less robust. If you prefer Make, let me know and I will provide the instructions for setting up the project via Make in CLion.
