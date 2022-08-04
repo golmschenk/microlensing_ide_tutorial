@@ -100,7 +100,7 @@ By default, a CLion will just run a built executable from the project root with 
 # 10. Run the run configuration
 1. Click the play button next near the top right of CLion. This will run the code remotely on gs66-emu using the configurations specified. You should see the output in the output window. CLion will automatically rebuild the executable on changed code before a run.
 2. Stop the code with the stop button next to the output window.
-{{ video(src="set_up_the_run_configuration.mov") }}
+{{ video(src="running_the_code.mov") }}
 
 # 11. Use the debugger
 For demonstration purposes, we will add a breakpoint to the code, but this is not necessary to run the code in debug mode (which will catch unexpected errors without any breakpoints in the code).
