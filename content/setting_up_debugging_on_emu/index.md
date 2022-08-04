@@ -19,7 +19,7 @@ This tutorial will demonstrate how to set up the CLion IDE to run and debug Davi
 # 1. Open the project in CLion
 1. Start CLion.
 2. Click the "Open" button.
-3. Select the project directory.
+3. Select the example project directory (`modeling_code_and_example_run`).
 4. If a dialogue box asks you if you want to "Trust" the project, do so.
 {{ video(src="open_project_in_clion.mov") }}
 
