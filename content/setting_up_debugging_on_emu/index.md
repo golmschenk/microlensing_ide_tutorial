@@ -9,12 +9,12 @@ date = 2022-08-04
 This tutorial will demonstrate how to set up the CLion IDE to run and debug David Bennett's microlensing code on gs66-emu.
 
 # 0. Requirements
-1. Have CLion installed.
+* Have CLion installed.
     * CLion can be downloaded [here](https://www.jetbrains.com/clion/download/#section=mac).
     * A free academic license for students, faculty, and those engaged in academic research can be obtained [here](https://www.jetbrains.com/community/education/#students).
-2. Have the example project downloaded.
+* Have the example project downloaded.
     * Download it from [here](https://drive.google.com/file/d/1aIkgFaO3Ov_kkRmt6WNiqgcrLlrnbc_q/view?usp=sharing).
-3. Have your SSH configuration file set up to allow single command connection to gs66-emu.
+* Have your SSH configuration file set up to allow single command connection to gs66-emu.
 
 # 1. Open the project in CLion
 1. Start CLion.
