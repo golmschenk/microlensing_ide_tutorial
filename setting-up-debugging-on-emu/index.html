@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Setting up remote Fortran debugging on gs66-emu |  </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    
+    <style>
+    :root {
+        /* Primary theme color */
+        --primary-color: #FED43F;
+        /* Primary theme text color */
+        --primary-text-color: #543631;
+        /* Primary theme link color */
+        --primary-link-color: #F9BB2D;
+        /* Secondary color: the background body color */
+        --secondary-color: #fcfaf6;
+        --secondary-text-color: #303030;
+        /* Highlight text color of table of content */
+        --toc-highlight-text-color: #d46e13;
+    }
+</style>
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="https://golmschenk.github.io/microlensing_ide_tutorial/juice.css">
+    
+    
+</head>
+
+<body>
+    
+
+
+    <main>
+        
+        
+        
+        
+        
+        <div class="toc">
+            <div class="toc-sticky">
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#summary">Summary</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#0-requirements">0. Requirements</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#1-open-the-project-in-clion">1. Open the project in CLion</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#2-install-the-fortran-plugin">2. Install the Fortran plugin</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#3-confirm-your-ssh-connection-to-gs66-emu">3. Confirm your SSH connection to gs66-emu</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#4-add-the-ssh-configuration-to-clion">4. Add the SSH configuration to CLion</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#5-add-the-remote-toolchain">5. Add the remote toolchain</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#6-add-a-deployment-configuration">6. Add a deployment configuration</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#7-add-the-cmake-configuration">7. Add the CMake configuration</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#8-load-the-cmake-project">8. Load the CMake project</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#9-set-up-the-run-configuration">9. Set up the run configuration</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#10-run-the-run-configuration">10. Run the run configuration</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#11-use-the-debugger">11. Use the debugger</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://golmschenk.github.io/microlensing_ide_tutorial/setting-up-debugging-on-emu/#extras">Extras</a>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        
+
+        <div class="content text">
+            
+<div class="heading-text">Setting up remote Fortran debugging on gs66-emu</div>
+<h1 id="summary">Summary</h1>
+<p>This tutorial will demonstrate how to set up the CLion IDE to run and debug David Bennett's microlensing code on gs66-emu.</p>
+<h1 id="0-requirements">0. Requirements</h1>
+<ul>
+<li>Have CLion installed.
+<ul>
+<li>CLion can be downloaded <a href="https://www.jetbrains.com/clion/download/#section=mac">here</a>.</li>
+<li>A free academic license for students, faculty, and those engaged in academic research can be obtained <a href="https://www.jetbrains.com/community/education/#students">here</a>.</li>
+</ul>
+</li>
+<li>Have the example project downloaded.
+<ul>
+<li>Download it from <a href="https://drive.google.com/file/d/1aIkgFaO3Ov_kkRmt6WNiqgcrLlrnbc_q/view?usp=sharing">here</a>.</li>
+</ul>
+</li>
+<li>Have your SSH configuration file set up to allow single command connection to gs66-emu.</li>
+</ul>
+<h1 id="1-open-the-project-in-clion">1. Open the project in CLion</h1>
+<ol>
+<li>Start CLion.</li>
+<li>Click the &quot;Open&quot; button.</li>
+<li>Select the example project directory (<code>modeling_code_and_example_run</code>).</li>
+<li>If a dialogue box asks you if you want to &quot;Trust&quot; the project, do so.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="open_project_in_clion.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="2-install-the-fortran-plugin">2. Install the Fortran plugin</h1>
+<p>Skip this section if you have installed the Fortran plugin previously.</p>
+<ol>
+<li>From the menu bar, select &quot;Clion &gt; Preferences&quot;.</li>
+<li>Open the &quot;Plugins&quot; section (or search for &quot;Plugins&quot; in the preferences search bar).</li>
+<li>Select the &quot;Marketplace&quot; tab.</li>
+<li>Search for &quot;Fortran&quot;.</li>
+<li>Install the Fortran plugin.</li>
+<li>Click the &quot;Restart IDE&quot; button that appears and confirm the restart.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="install_fortran_plugin.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="3-confirm-your-ssh-connection-to-gs66-emu">3. Confirm your SSH connection to gs66-emu</h1>
+<p>It is possible to use more complex SSH commands from within CLion. However, for this tutorial, it is expected that you can connect to gs66-emu with a single command from your SSH configuration (usually configured in <code>.ssh/config</code>).</p>
+<ol>
+<li>Open a terminal.</li>
+<li>Confirm you can connect to gs66-emu with a single command.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="confirming_ssh_to_emu.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="4-add-the-ssh-configuration-to-clion">4. Add the SSH configuration to CLion</h1>
+<ol>
+<li>From the menu bar, select &quot;Clion &gt; Preferences&quot;.</li>
+<li>Within preferences, open &quot;Tools &gt; SSH Configurations&quot;.</li>
+<li>In the &quot;SSH Configurations&quot; window, click the &quot;+&quot; button to add a new configuration.</li>
+<li>In the &quot;Authentication type&quot; dropdown, select &quot;OpenSSH config and authentication agent&quot;.</li>
+<li>Add the host name as specified in your SSH configuration file (e.g., <code>gs66-emu</code>).</li>
+<li>Set the port to <code>22</code>.</li>
+<li>Confirm with the &quot;Test Connection&quot; button.</li>
+<li>Apply the changes.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="setting_up_ssh_configuration.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="5-add-the-remote-toolchain">5. Add the remote toolchain</h1>
+<p>The toolchain is the collection of compiler, debugger, etc. used to build and execute the code. This will set up CLion to use the Intel &quot;ifort&quot; compiler on gs66-emu. More toolchains can be added later (e.g., a local toolchain).</p>
+<ol>
+<li>Open CLion's preferences.</li>
+<li>Within preferences, open &quot;Build, Execution, Deployment &gt; Toolchains&quot;.</li>
+<li>Create a new toolchain with the &quot;+&quot; button, and select a &quot;Remote Host&quot; type.</li>
+<li>Rename the toolchain to something useful (e.g., <code>gs66-emu-intel</code>).</li>
+<li>In the &quot;Credentials&quot; dropdown, select the SSH configuration we previously created.</li>
+<li>Click &quot;Add environment&quot; &gt; &quot;From file&quot;, and add the path <code>/local/data/emussd1/greg_shared/intel_environment_file.sh</code>. This environment file will set the environment variables for the toolchain.</li>
+<li>Apply the changes.<figure class="inline-image">
+ <video width="100%" controls playsinline muted>
+ 	<source src="setting_up_the_remote_toolchain.mov" type="video/mp4">
+ 	Your browser does not support the video tag.
+ </video>
+ 
+</li>
+</ol>
+</figure>
+<h1 id="6-add-a-deployment-configuration">6. Add a deployment configuration</h1>
+<p>A &quot;deployment&quot; tells CLion where you want to deploy the code. In this case, where on gs66-emu we want the code to exist and run from.</p>
+<ol>
+<li>Open CLion's preferences.</li>
+<li>Within preferences, open &quot;Build, Execution, Deployment &gt; Deployment&quot;.</li>
+<li>When we created our toolchain, CLion created a default deployment for us based on that. Select that deployment.</li>
+<li>For the &quot;Root Path&quot;, click the &quot;Autodetect&quot; button to automatically find and use the user's home directory as the root directory for the deployment.</li>
+<li>Go to the &quot;Mappings&quot; tab. Here we specify which local directories should be mapped to which remote directories.</li>
+<li>Specify a name for the project directory on gs66-emu. The simplest option is to use the same directory name as you're using locally (<code>modeling_code_and_example_run</code>). This is relative to the root directory set above (i.e., your home directory).</li>
+<li>Apply the changes.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="setting_up_the_deployment.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="7-add-the-cmake-configuration">7. Add the CMake configuration</h1>
+<p>This tutorial uses CMake instead of GNU Make. CMake has several advantages over Make. Notably for our case, it interacts with IDEs more easily. CLion can also function with Make, but it requires a few extra steps and is a bit less robust. If you prefer Make, let me know and I will provide the instructions for setting up the project via Make in CLion.</p>
+<ol>
+<li>Open CLion's preferences.</li>
+<li>Within preferences, open &quot;Build, Execution, Deployment &gt; CMake&quot;.</li>
+<li>Within the existing CMake configuration, change the toolchain to the one created in the previous step.</li>
+<li>Apply the changes.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="setting_up_the_cmake_configuration.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="8-load-the-cmake-project">8. Load the CMake project</h1>
+<p>This step tells CLion what should be considered the build instructions for the project (e.g., the CMake instructions file).</p>
+<ol>
+<li>In the &quot;Project&quot; panel, open &quot;modeling_code &gt; CMakeLists.txt&quot;. This is equivalent to a &quot;Makefile&quot; for GNU Make.</li>
+<li>In the yellow notification bar at the top of the file, click &quot;Load CMake Project&quot;. It will take a moment as the IDE uploads the project and configuration to gs66-emu for the first time. You can see the progress, but clicking the progress bar at the bottom of the IDE.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="load_the_cmake_project.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="9-set-up-the-run-configuration">9. Set up the run configuration</h1>
+<p>By default, a CLion will just run a built executable from the project root with no inputs. This step changes that.</p>
+<ol>
+<li>Near the top right of CLion, there is a dropdown box showing the currently selected run configuration. Click the dropdown, and select &quot;Edit Configurations...&quot;.</li>
+<li>If not already selected, in the left panel, select the &quot;minuit_all_rvg4Ctpar.xO&quot; configuration.</li>
+<li>For &quot;Working directory&quot; use the folder button to change the working directory to path to the <code>example_run</code> directory. Note, the full local path will be shown, but all local paths are mapped to remote paths as we specified in the deployment.</li>
+<li>Click the checkbox for &quot;Redirect input from&quot;, and use the folder button to select <code>example_run/run_1.in</code>.</li>
+<li>Apply the changes.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="set_up_the_run_configuration.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="10-run-the-run-configuration">10. Run the run configuration</h1>
+<ol>
+<li>Click the play button next near the top right of CLion. This will run the code remotely on gs66-emu using the configurations specified. You should see the output in the output window. CLion will automatically rebuild the executable on changed code before a run.</li>
+<li>Stop the code with the stop button next to the output window.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="running_the_code.mov" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="11-use-the-debugger">11. Use the debugger</h1>
+<p>For demonstration purposes, we will add a breakpoint to the code, but this is not necessary to run the code in debug mode (which will catch unexpected errors without any breakpoints in the code).</p>
+<ol>
+<li>Open <code>modeling_code/fcnrvg4_Ctpar.f</code> in the editor.</li>
+<li>Add a break point at line 688 by clicking in the gutter next to the line number.</li>
+<li>Click the bug button next to the play button at the top right of CLion. The code will begin, then pause at the breakpoint. Note, the IDE pauses before the line of code with the breakpoint is run.</li>
+<li>In the debug panel at the bottom, there are two tabs: &quot;Debugger&quot; and &quot;Console&quot;. Console shows the default output of the script. Make sure the &quot;Debugger&quot; tab is selected.</li>
+<li>All variables the debugger can find will be displayed with their current values. (Note: When connecting to gs66-emu remotely, this variable display takes a while to load, longer than is usual for a debugger. This seems to be due to the codebase's use of large non-dynamic arrays, which are being transmitted on every breakpoint pause. Being on premises makes this loading time relatively short. I am investigating alternatives to speed this, as this is far slower than I would prefer a debugger to be.)</li>
+<li>The half-play button in the panel will continue the code until it hits another breakpoint or other error.</li>
+<li>The various arrow buttons can be used to step through the code line-by-line from the current location.</li>
+<li>The calculator button can be used to execute (mostly) arbitrary commands at that point in the code.</li>
+</ol>
+<figure class="inline-image">
+	<video width="100%" controls playsinline muted>
+		<source src="using_the_debugger.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+	
+</figure>
+<h1 id="extras">Extras</h1>
+<ul>
+<li>At the right side of CLion, there is a tab for &quot;Remote Host&quot;, which provides a graphical file explorer of gs66-emu. This allows for easy editing and drag-and-drop interaction will files on any configured remote host.</li>
+<li>The menu &quot;Tools &gt; Open Remote Host Terminal&quot; will open a terminal on gs66-emu.</li>
+<li>Executables built with CMake and CLion can be found in their respective configuration directories on gs66-emu. For example, the executable in my case can be found at <code>/local/data/emussd1/golmsche/modeling_code_and_example_run/modeling_code/cmake-build-debug-gs66-emu-intel/minuit_all_rvg4Ctpar.xO</code>.</li>
+</ul>
+
+
+        </div>
+
+        
+        
+    </main>
+
+    
+
+</body>
+<script>
+    function highlightNav(heading) {
+        let pathname = location.pathname;
+        document.querySelectorAll(".toc a").forEach((item) => {
+            item.classList.remove("active");
+        });
+        document.querySelector(".toc a[href$='" + pathname + "#" + heading + "']").classList.add("active");
+    }
+
+    let currentHeading = "";
+    window.onscroll = function () {
+        let h = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        let elementArr = [];
+
+        h.forEach(item => {
+            if (item.id !== "") {
+                elementArr[item.id] = item.getBoundingClientRect().top;
+            }
+        });
+        elementArr.sort();
+        for (let key in elementArr) {
+            if (!elementArr.hasOwnProperty(key)) {
+                continue;
+            }
+            if (elementArr[key] > 0 && elementArr[key] < 300) {
+                if (currentHeading !== key) {
+                    highlightNav(key);
+                    currentHeading = key;
+                }
+                break;
+            }
+        }
+    }
+</script>
+
+</html>

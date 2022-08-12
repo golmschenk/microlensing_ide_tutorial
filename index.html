@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    
+    <style>
+    :root {
+        /* Primary theme color */
+        --primary-color: #FED43F;
+        /* Primary theme text color */
+        --primary-text-color: #543631;
+        /* Primary theme link color */
+        --primary-link-color: #F9BB2D;
+        /* Secondary color: the background body color */
+        --secondary-color: #fcfaf6;
+        --secondary-text-color: #303030;
+        /* Highlight text color of table of content */
+        --toc-highlight-text-color: #d46e13;
+    }
+</style>
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="https://golmschenk.github.io/microlensing_ide_tutorial/juice.css">
+    
+    
+</head>
+
+<body>
+    
+
+
+    <main>
+        
+        
+        
+        
+
+        <div class="content text">
+            
+    
+        <h1><a href="https:&#x2F;&#x2F;golmschenk.github.io&#x2F;microlensing_ide_tutorial&#x2F;setting-up-debugging-on-emu&#x2F;">Setting up remote Fortran debugging on gs66-emu</a></h1>
+    
+
+        </div>
+
+        
+        
+    </main>
+
+    
+
+</body>
+<script>
+    function highlightNav(heading) {
+        let pathname = location.pathname;
+        document.querySelectorAll(".toc a").forEach((item) => {
+            item.classList.remove("active");
+        });
+        document.querySelector(".toc a[href$='" + pathname + "#" + heading + "']").classList.add("active");
+    }
+
+    let currentHeading = "";
+    window.onscroll = function () {
+        let h = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        let elementArr = [];
+
+        h.forEach(item => {
+            if (item.id !== "") {
+                elementArr[item.id] = item.getBoundingClientRect().top;
+            }
+        });
+        elementArr.sort();
+        for (let key in elementArr) {
+            if (!elementArr.hasOwnProperty(key)) {
+                continue;
+            }
+            if (elementArr[key] > 0 && elementArr[key] < 300) {
+                if (currentHeading !== key) {
+                    highlightNav(key);
+                    currentHeading = key;
+                }
+                break;
+            }
+        }
+    }
+</script>
+
+</html>
